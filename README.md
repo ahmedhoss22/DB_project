@@ -48,3 +48,7 @@ df.describe()
 # min :- minimum value of that feature.
 # max :- maximum value of that feature.
 # 25%, 50%, and 75% are the percentile/quartile of each features.
+```
+
+## Data Cleaninng
+The first step in the data analysis process is to clean and prepare the dataset for further analysis. The following code segment performs data cleaning tasks:
