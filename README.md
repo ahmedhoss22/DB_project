@@ -67,3 +67,61 @@ print(df[df['BMI']==0].shape[0])
 #Age & DiabetesPedigreeFunction do not have have minimum 0 value so no need to replace ,
 #also no. of pregnancies as 0 is possible as observed in df.describe
 ```
+
+
+Certainly! Here's an updated section for the README file that includes the code for generating histograms for each feature:
+
+markdown
+Copy code
+## Data Cleaning
+Data cleaning is an essential step in preparing the dataset for analysis and modeling. The following data cleaning tasks are performed:
+
+- Dropping Duplicates:
+```python
+df = df.drop_duplicates()
+The code removes any duplicate rows from the dataset, ensuring that each record is unique and preventing redundant information from affecting the analysis.
+
+Handling Missing Values:
+python
+Copy code
+df.isnull().sum()
+The code checks for missing values in the dataset and prints the sum of missing values for each column. This step helps identify columns with missing data, which can then be handled appropriately, such as through imputation or removal of missing values.
+```
+## Data Visualization
+To gain a better understanding of the distribution of each feature in the dataset, histograms are generated. This provides insights into the data range and helps identify any potential outliers or patterns.
+```python
+#histogram for each  feature
+df.hist(bins=10,figsize=(10,10))
+
+plt.show()
+plt.figure(figsize=(16,12))
+sns.set_style(style='whitegrid')
+plt.subplot(3,3,1)
+sns.boxplot(x='Glucose',data=df)
+plt.subplot(3,3,2)
+sns.boxplot(x='BloodPressure',data=df)
+plt.subplot(3,3,3)
+sns.boxplot(x='Insulin',data=df)
+plt.subplot(3,3,4)
+sns.boxplot(x='BMI',data=df)
+plt.subplot(3,3,5)
+sns.boxplot(x='Age',data=df)
+plt.subplot(3,3,6)
+sns.boxplot(x='SkinThickness',data=df)
+plt.subplot(3,3,7)
+sns.boxplot(x='Pregnancies',data=df)
+plt.subplot(3,3,8)
+sns.boxplot(x='DiabetesPedigreeFunction',data=df)
+```
+
+The code above calculates the correlation matrix using df.corr(), which computes the pairwise correlation between all columns in the dataset. The resulting correlation matrix, corrmat, represents the strength and direction of the linear relationship between the features.
+
+```python
+corrmat=df.corr()
+sns.heatmap(corrmat, annot=True)
+```
+The sns.heatmap() function then visualizes the correlation matrix as a heatmap. Each cell in the heatmap represents the correlation between two features, with color indicating the strength of the correlation. The annot=True parameter enables the display of correlation values inside each cell.
+
+This heatmap is useful for identifying features that are strongly correlated (either positively or negatively). High positive correlation suggests that the features move in the same direction, while high negative correlation indicates they move in opposite directions. It helps to identify potential multicollinearity issues and provides insights into the interdependencies between features.
+
+The generated correlation heatmap helps in feature selection, identifying redundant features, and understanding the relationships among variables in the dataset.
