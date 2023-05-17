@@ -9,4 +9,5 @@ The Diabetes Prediction project aims to develop a machine learning model that ca
 | QuantileTransformer() |  function creates an instance of the QuantileTransformer class, which is a data transformation technique for mapping the features of a dataset to a specified distribution. |
 | quantile.fit_transform(x)| method is a convenient way to fit the quantile transformer to the data x and apply the transformation in a single step. It combines the fit() and transform() methods into one operation. |
 |GridSearchCV() | function is a powerful tool from scikit-learn used for hyperparameter tuning and model selection. It performs an exhaustive search over a specified parameter grid to find the best combination of hyperparameters for a given estimator. |
+| GaussianNB() | unction creates an instance of the Gaussian Naive Bayes classifier, which is a probabilistic algorithm used for classification. It assumes that features follow a Gaussian (normal) distribution and uses Bayes' theorem to make predictions. |
 
