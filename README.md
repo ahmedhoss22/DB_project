@@ -51,48 +51,26 @@ is used to count the number of missing values in each column of a DataFrame
 - print(df[df['BMI']==0].shape[0])
 checking for 0 values in 5 columns , 
 
--- Age & DiabetesPedigreeFunction do not have have minimum 0 value so no need to replace ,
+Age & DiabetesPedigreeFunction do not have have minimum 0 value so no need to replace ,
 #also no. of pregnancies as 0 is possible as observed in df.describe
 
-Data cleaning is an essential step in preparing the dataset for analysis and modeling. The following data cleaning tasks are performed:
-
-- Dropping Duplicates:
-```python
-df = df.drop_duplicates()
-The code removes any duplicate rows from the dataset, ensuring that each record is unique and preventing redundant information from affecting the analysis.
-
-Handling Missing Values:
-python
-Copy code
-df.isnull().sum()
-The code checks for missing values in the dataset and prints the sum of missing values for each column. This step helps identify columns with missing data, which can then be handled appropriately, such as through imputation or removal of missing values.
-```
 ## Data Visualization
 To gain a better understanding of the distribution of each feature in the dataset, histograms are generated. This provides insights into the data range and helps identify any potential outliers or patterns.
-```python
-#histogram for each  feature
-df.hist(bins=10,figsize=(10,10))
 
+```python
+df.hist(bins=10,figsize=(10,10))
 plt.show()
 plt.figure(figsize=(16,12))
 sns.set_style(style='whitegrid')
-plt.subplot(3,3,1)
-sns.boxplot(x='Glucose',data=df)
-plt.subplot(3,3,2)
-sns.boxplot(x='BloodPressure',data=df)
-plt.subplot(3,3,3)
-sns.boxplot(x='Insulin',data=df)
-plt.subplot(3,3,4)
-sns.boxplot(x='BMI',data=df)
-plt.subplot(3,3,5)
-sns.boxplot(x='Age',data=df)
-plt.subplot(3,3,6)
-sns.boxplot(x='SkinThickness',data=df)
-plt.subplot(3,3,7)
-sns.boxplot(x='Pregnancies',data=df)
-plt.subplot(3,3,8)
-sns.boxplot(x='DiabetesPedigreeFunction',data=df)
 ```
+- hist(): This method is called on the DataFrame to generate histograms.
+- bins=10: Specifies the number of bins or intervals to divide the data range into. In this case, each feature's histogram will have 10 bins.
+- figsize=(10,10): Sets the size of the figure or plot in inches. In this case, the width and height of the figure are both set to 10 inches.
+After generating the histograms, the code plt.show() is used to display the plot.
+
+Additionally, the code plt.figure(figsize=(16,12)) creates a new figure with a larger size before generating the histograms. This line sets the size of the subsequent plot to 16 inches in width and 12 inches in height.
+
+By using these code snippets, you can visualize the distribution and range of values for each feature in the DataFrame using histograms. It helps in understanding the data distribution and identifying any potential outliers or patterns.
 
 ### The code above calculates the correlation matrix using df.corr(), which computes the pairwise correlation between all columns in the dataset. The resulting correlation matrix, corrmat, represents the strength and direction of the linear relationship between the features.
 
