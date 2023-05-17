@@ -120,8 +120,8 @@ The code above calculates the correlation matrix using df.corr(), which computes
 corrmat=df.corr()
 sns.heatmap(corrmat, annot=True)
 ```
-The sns.heatmap() function then visualizes the correlation matrix as a heatmap. Each cell in the heatmap represents the correlation between two features, with color indicating the strength of the correlation. The annot=True parameter enables the display of correlation values inside each cell.
+- The sns.heatmap() function then visualizes the correlation matrix as a heatmap. Each cell in the heatmap represents the correlation between two features, with color indicating the strength of the correlation. The annot=True parameter enables the display of correlation values inside each cell.
 
-This heatmap is useful for identifying features that are strongly correlated (either positively or negatively). High positive correlation suggests that the features move in the same direction, while high negative correlation indicates they move in opposite directions. It helps to identify potential multicollinearity issues and provides insights into the interdependencies between features.
+- This heatmap is useful for identifying features that are strongly correlated (either positively or negatively). High positive correlation suggests that the features move in the same direction, while high negative correlation indicates they move in opposite directions. It helps to identify potential multicollinearity issues and provides insights into the interdependencies between features.
 
-The generated correlation heatmap helps in feature selection, identifying redundant features, and understanding the relationships among variables in the dataset.
+- The generated correlation heatmap helps in feature selection, identifying redundant features, and understanding the relationships among variables in the dataset.
