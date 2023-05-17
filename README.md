@@ -165,3 +165,30 @@ from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 ```
+
+## Logistic Regression
+Logistic regression is used as a classification algorithm to predict the outcome of the target variable based on the independent features. The scikit-learn library provides the `LogisticRegression()` class for logistic regression modeling.
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
+
+reg = LogisticRegression()
+reg.fit(X_train, y_train)
+
+lr_pred = reg.predict(X_test)
+
+print("Classification Report:\n", classification_report(y_test, lr_pred))
+print("\nF1 Score:", f1_score(y_test, lr_pred))
+print("Precision Score:", precision_score(y_test, lr_pred))
+print("Recall Score:", recall_score(y_test, lr_pred))
+
+print("\nConfusion Matrix:\n")
+sns.heatmap(confusion_matrix(y_test, lr_pred))
+```
+- redictions are made on the test set using reg.predict(X_test), and the classification report is printed using classification_report(y_test, lr_pred). Additional evaluation metrics such as F1 score, precision score, and recall score are calculated using the corresponding functions from the scikit-learn library.
+
+- Finally, a confusion matrix is generated using confusion_matrix(y_test, lr_pred) and visualized as a heatmap using sns.heatmap().
+
+- The classification report, evaluation metrics, and confusion matrix provide insights into the performance of the logistic regression model, including precision, recall, F1 score, and accuracy.
