@@ -50,5 +50,20 @@ df.describe()
 # 25%, 50%, and 75% are the percentile/quartile of each features.
 ```
 
-## Data Cleaninng
-The first step in the data analysis process is to clean and prepare the dataset for further analysis. The following code segment performs data cleaning tasks:
+## Data Cleaning
+Data cleaning is an essential step in preparing the dataset for analysis and modeling. The following data cleaning tasks are performed:
+
+- Dropping Duplicates:
+```python
+df = df.drop_duplicates()
+df.isnull().sum()
+
+print(df[df['BloodPressure']==0].shape[0])
+print(df[df['Glucose']==0].shape[0])
+print(df[df['SkinThickness']==0].shape[0])
+print(df[df['Insulin']==0].shape[0])
+print(df[df['BMI']==0].shape[0])
+#checking for 0 values in 5 columns , 
+#Age & DiabetesPedigreeFunction do not have have minimum 0 value so no need to replace ,
+#also no. of pregnancies as 0 is possible as observed in df.describe
+```
