@@ -72,7 +72,7 @@ Additionally, the code plt.figure(figsize=(16,12)) creates a new figure with a l
 
 By using these code snippets, you can visualize the distribution and range of values for each feature in the DataFrame using histograms. It helps in understanding the data distribution and identifying any potential outliers or patterns.
 
-### The code above calculates the correlation matrix using df.corr(), which computes the pairwise correlation between all columns in the dataset. The resulting correlation matrix, corrmat, represents the strength and direction of the linear relationship between the features.
+## Correlation Matrix
 
 ```python
 corrmat=df.corr()
@@ -86,83 +86,52 @@ sns.heatmap(corrmat, annot=True)
 
 ### Feature Transformation:
 ```python
-from sklearn.preprocessing import QuantileTransformer
-
-x = df_selected
 quantile = QuantileTransformer()
 X = quantile.fit_transform(x)
-df_new = pd.DataFrame(X)
 df_new.columns = ['Pregnancies', 'Glucose', 'SkinThickness', 'BMI', 'Age', 'Outcome']
 ```
+- quantile = QuantileTransformer(): This line creates an instance of the QuantileTransformer class. The QuantileTransformer is a data transformation technique that maps the data to a uniform or a normal distribution.
+- X = quantile.fit_transform(x): The fit_transform() method is used to fit the transformer to the data (x) and transform it. The fit_transform() method performs two steps: it first fits the transformer to the data to learn the parameters, and then transforms the data using those learned parameters. The transformed data is stored in the variable X.
+- df_new.columns = ['Pregnancies', 'Glucose', 'SkinThickness', 'BMI', 'Age', 'Outcome']: This line assigns new column names to the DataFrame df_new. It sets the column names to 'Pregnancies', 'Glucose', 'SkinThickness', 'BMI', 'Age', and 'Outcome' respectively.
+Overall, the code uses the QuantileTransformer to transform the data in x, which is then stored in the variable X. It then assigns new column names to the DataFrame df_new. This transformation is often used to normalize the data and make it more suitable for certain machine learning algorithms that assume a specific data distribution.
 
-## Data Visualization
-To visually explore the distribution and identify potential outliers in selected features, boxplots are generated using the `sns.boxplot()` function from the Seaborn library.
-
-```python
-plt.figure(figsize=(16, 12))
-sns.set_style(style='whitegrid')
-plt.subplot(3, 3, 1)
-sns.boxplot(x=df_new['Glucose'], data=df_new)
-plt.subplot(3, 3, 2)
-sns.boxplot(x=df_new['BMI'], data=df_new)
-plt.subplot(3, 3, 4)
-sns.boxplot(x=df_new['Age'], data=df_new)
-plt.subplot(3, 3, 5)
-sns.boxplot(x=df_new['SkinThickness'], data=df_new)
-```
-The code above creates a figure with a size of 16x12 inches using plt.figure(figsize=(16, 12)). The sns.set_style(style='whitegrid') line sets the style of the Seaborn plots to have a white grid background.
 ## Data Preparation and Splitting
 To prepare the data for training a machine learning model, the dataset is split into independent features (X) and the dependent feature (y). The data is then divided into training and testing sets using the `train_test_split()` function from the scikit-learn library.
 
 ```python
-target_name = 'Outcome'
-y = df_new[target_name]  # Dependent variable
-X = df_new.drop(target_name, axis=1)  # Independent variables
-
-from sklearn.model_selection import train_test_split
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 ```
+- X: This variable represents the input features or independent variables.
+- y: This variable represents the target variable or dependent variable.
+- test_size=0.2: This parameter specifies the proportion of the data that should be allocated to the testing set. In this case, 20% of the data will be used for testing, while the remaining 80% will be used for training the model.
+random_state=0: This parameter sets the random seed for reproducibility. By setting it to a specific value (in this case, 0), the same train-test split will be obtained each time the code is executed.
+- The train_test_split() function from scikit-learn is used to split the data into training and testing sets based on the provided parameters. It returns four sets of data:
+
+- X_train: This variable contains the training data for the independent features.
+- X_test: This variable contains the testing data for the independent features.
+- y_train: This variable contains the training data for the target variable.
+- y_test: This variable contains the testing data for the target variable.
+The purpose of splitting the data into training and testing sets is to assess the performance of the machine learning model on unseen data. The model is trained on the training set (X_train and y_train), and then evaluated on the testing set (X_test and y_test) to measure its generalization ability.
 
 ## Logistic Regression
 Logistic regression is used as a classification algorithm to predict the outcome of the target variable based on the independent features. The scikit-learn library provides the `LogisticRegression()` class for logistic regression modeling.
 
 ```python
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.metrics import f1_score, precision_score, recall_score, accuracy_score
-
 reg = LogisticRegression()
 reg.fit(X_train, y_train)
-
 lr_pred = reg.predict(X_test)
-
-print("Classification Report:\n", classification_report(y_test, lr_pred))
-print("\nF1 Score:", f1_score(y_test, lr_pred))
-print("Precision Score:", precision_score(y_test, lr_pred))
-print("Recall Score:", recall_score(y_test, lr_pred))
-
-print("\nConfusion Matrix:\n")
-sns.heatmap(confusion_matrix(y_test, lr_pred))
 ```
-- redictions are made on the test set using reg.predict(X_test), and the classification report is printed using classification_report(y_test, lr_pred). Additional evaluation metrics such as F1 score, precision score, and recall score are calculated using the corresponding functions from the scikit-learn library.
+- reg = LogisticRegression(): This line creates an instance of the LogisticRegression class. Logistic regression is a popular classification algorithm used to predict binary outcomes based on input features.
+- reg.fit(X_train, y_train): The fit() method is called on the LogisticRegression object to train the model. It takes the -training data X_train (independent features) and y_train (target variable) as input. During this step, the logistic regression model learns the coefficients for the features that best fit the training data.
+- lr_pred = reg.predict(X_test): After the model has been trained, the predict() method is used to make predictions on the testing data X_test. The logistic regression model assigns a class label (0 or 1) to each sample in the testing data based on its learned parameters and the input features. The predicted class labels are stored in the variable lr_pred.
 
-- Finally, a confusion matrix is generated using confusion_matrix(y_test, lr_pred) and visualized as a heatmap using sns.heatmap().
-
-- The classification report, evaluation metrics, and confusion matrix provide insights into the performance of the logistic regression model, including precision, recall, F1 score, and accuracy.
+By executing this code, you train a logistic regression model using the training data and make predictions on the testing data. The predictions are stored in lr_pred and can be used for further evaluation, such as calculating performance metrics or analyzing the accuracy of the model.
 
 ## Decision Tree Classifier
 A decision tree classifier is used to predict the outcome of the target variable based on the independent features. The scikit-learn library provides the `DecisionTreeClassifier()` class for decision tree modeling.
 
 ```python
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.metrics import f1_score, precision_score, recall_score
-from sklearn.model_selection import GridSearchCV
-
 dt = DecisionTreeClassifier(random_state=42)
-
-# Create the parameter grid based on the results of random search
 params = {
     'max_depth': [5, 10, 20, 25],
     'min_samples_leaf': [10, 20, 50, 100, 120],
@@ -173,21 +142,11 @@ grid_search = GridSearchCV(estimator=dt, param_grid=params, cv=4, n_jobs=-1, ver
 best_model = grid_search.fit(X_train, y_train)
 
 dt_pred = best_model.predict(X_test)
-
-print("Classification Report:\n", classification_report(y_test, dt_pred))
-print("\nF1 Score:", f1_score(y_test, dt_pred))
-print("Precision Score:", precision_score(y_test, dt_pred))
-print("Recall Score:", recall_score(y_test, dt_pred))
-
-print("\nConfusion Matrix:\n")
-sns.heatmap(confusion_matrix(y_test, dt_pred))
 ```
-- n the code above, a decision tree classifier model is instantiated using DecisionTreeClassifier(). The model is then trained on the training data using best_model = grid_search.fit(X_train, y_train), which performs a grid search to find the best hyperparameters for the decision tree classifier.
+- dt = DecisionTreeClassifier(random_state=42): This line creates an instance of the DecisionTreeClassifier class, which is a classification algorithm based on decision trees. The random_state parameter is set to 42 to ensure reproducibility of results.
+- grid_search = GridSearchCV(estimator=dt, param_grid=params, cv=4, n_jobs=-1, verbose=1, scoring="accuracy"): This line creates an instance of the GridSearchCV class. It takes the DecisionTreeClassifier object dt, the parameter grid params, the number of cross-validation folds (cv=4), the number of parallel jobs to run (n_jobs=-1 means using all available cores), the verbosity level (verbose=1 for detailed output), and the scoring metric (scoring="accuracy" to evaluate models based on accuracy).
 
-- Predictions are made on the test set using best_model.predict(X_test), and the classification report is printed using classification_report(y_test, dt_pred). Additional evaluation metrics such as F1 score, precision score, and recall score are calculated using the corresponding functions from the scikit-learn library.
-
-- Finally, a confusion matrix is generated using confusion_matrix(y_test, dt_pred) and visualized as a heatmap using sns.heatmap().
-
+- best_model = grid_search.fit(X_train, y_train): The fit() method is called on the GridSearchCV object to perform the grid search with cross-validation. It trains and evaluates the decision tree models with different combinations of hyperparameters on the training data. The best model with the highest accuracy is selected based on cross-validation performance and stored in the best_model variable.
 ## Evaluation metric
 After making predictions with the logistic regression and decision tree models, it's important to assess their performance using various evaluation metrics. The scikit-learn library provides functions to calculate metrics such as accuracy, precision, recall, and F1 score.
 ```python
@@ -204,19 +163,6 @@ dt_accuracy = accuracy_score(y_test, dt_pred)
 dt_precision = precision_score(y_test, dt_pred)
 dt_recall = recall_score(y_test, dt_pred)
 dt_f1 = f1_score(y_test, dt_pred)
-
-# Print evaluation metrics
-print("Logistic Regression Performance:")
-print("Accuracy:", lr_accuracy)
-print("Precision:", lr_precision)
-print("Recall:", lr_recall)
-print("F1 Score:", lr_f1)
-
-print("\nDecision Tree Performance:")
-print("Accuracy:", dt_accuracy)
-print("Precision:", dt_precision)
-print("Recall:", dt_recall)
-print("F1 Score:", dt_f1)
 ```
 - In the code above, various evaluation metrics are calculated for both the logistic regression and decision tree models. The metrics being calculated include accuracy, precision, recall, and F1 score. These metrics provide insights into the performance of the models in terms of their overall accuracy, ability to correctly identify positive cases, and ability to capture all relevant positive cases.
 
