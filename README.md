@@ -230,7 +230,7 @@ sns.heatmap(confusion_matrix(y_test, dt_pred))
 
 - Finally, a confusion matrix is generated using confusion_matrix(y_test, dt_pred) and visualized as a heatmap using sns.heatmap().
 
-### Evaluation metric
+## Evaluation metric
 After making predictions with the logistic regression and decision tree models, it's important to assess their performance using various evaluation metrics. The scikit-learn library provides functions to calculate metrics such as accuracy, precision, recall, and F1 score.
 ```python
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
