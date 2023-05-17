@@ -114,7 +114,7 @@ plt.subplot(3,3,8)
 sns.boxplot(x='DiabetesPedigreeFunction',data=df)
 ```
 
-The code above calculates the correlation matrix using df.corr(), which computes the pairwise correlation between all columns in the dataset. The resulting correlation matrix, corrmat, represents the strength and direction of the linear relationship between the features.
+### The code above calculates the correlation matrix using df.corr(), which computes the pairwise correlation between all columns in the dataset. The resulting correlation matrix, corrmat, represents the strength and direction of the linear relationship between the features.
 
 ```python
 corrmat=df.corr()
