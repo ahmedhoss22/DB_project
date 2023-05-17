@@ -5,7 +5,8 @@ The Diabetes Prediction project aims to develop a machine learning model that ca
 
 | Function              | Description                                          |
 |-----------------------|------------------------------------------------------|
-| `corrmat = df.corr()` | Computes the correlation matrix of a DataFrame `df`. |
+| df.corr()             | Computes the correlation matrix of a DataFrame `df`. |
+| QuantileTransformer() |  function creates an instance of the QuantileTransformer class, which is a data transformation technique for mapping the features of a dataset to a specified distribution. |
 
 
 ## Data Cleaning
