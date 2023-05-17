@@ -125,3 +125,43 @@ sns.heatmap(corrmat, annot=True)
 - This heatmap is useful for identifying features that are strongly correlated (either positively or negatively). High positive correlation suggests that the features move in the same direction, while high negative correlation indicates they move in opposite directions. It helps to identify potential multicollinearity issues and provides insights into the interdependencies between features.
 
 - The generated correlation heatmap helps in feature selection, identifying redundant features, and understanding the relationships among variables in the dataset.
+
+### Feature Transformation:
+```python
+from sklearn.preprocessing import QuantileTransformer
+
+x = df_selected
+quantile = QuantileTransformer()
+X = quantile.fit_transform(x)
+df_new = pd.DataFrame(X)
+df_new.columns = ['Pregnancies', 'Glucose', 'SkinThickness', 'BMI', 'Age', 'Outcome']
+```
+
+## Data Visualization
+To visually explore the distribution and identify potential outliers in selected features, boxplots are generated using the `sns.boxplot()` function from the Seaborn library.
+
+```python
+plt.figure(figsize=(16, 12))
+sns.set_style(style='whitegrid')
+plt.subplot(3, 3, 1)
+sns.boxplot(x=df_new['Glucose'], data=df_new)
+plt.subplot(3, 3, 2)
+sns.boxplot(x=df_new['BMI'], data=df_new)
+plt.subplot(3, 3, 4)
+sns.boxplot(x=df_new['Age'], data=df_new)
+plt.subplot(3, 3, 5)
+sns.boxplot(x=df_new['SkinThickness'], data=df_new)
+```
+The code above creates a figure with a size of 16x12 inches using plt.figure(figsize=(16, 12)). The sns.set_style(style='whitegrid') line sets the style of the Seaborn plots to have a white grid background.
+## Data Preparation and Splitting
+To prepare the data for training a machine learning model, the dataset is split into independent features (X) and the dependent feature (y). The data is then divided into training and testing sets using the `train_test_split()` function from the scikit-learn library.
+
+```python
+target_name = 'Outcome'
+y = df_new[target_name]  # Dependent variable
+X = df_new.drop(target_name, axis=1)  # Independent variables
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+```
