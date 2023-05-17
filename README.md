@@ -192,3 +192,74 @@ sns.heatmap(confusion_matrix(y_test, lr_pred))
 - Finally, a confusion matrix is generated using confusion_matrix(y_test, lr_pred) and visualized as a heatmap using sns.heatmap().
 
 - The classification report, evaluation metrics, and confusion matrix provide insights into the performance of the logistic regression model, including precision, recall, F1 score, and accuracy.
+
+## Decision Tree Classifier
+A decision tree classifier is used to predict the outcome of the target variable based on the independent features. The scikit-learn library provides the `DecisionTreeClassifier()` class for decision tree modeling.
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import f1_score, precision_score, recall_score
+from sklearn.model_selection import GridSearchCV
+
+dt = DecisionTreeClassifier(random_state=42)
+
+# Create the parameter grid based on the results of random search
+params = {
+    'max_depth': [5, 10, 20, 25],
+    'min_samples_leaf': [10, 20, 50, 100, 120],
+    'criterion': ["gini", "entropy"]
+}
+
+grid_search = GridSearchCV(estimator=dt, param_grid=params, cv=4, n_jobs=-1, verbose=1, scoring="accuracy")
+best_model = grid_search.fit(X_train, y_train)
+
+dt_pred = best_model.predict(X_test)
+
+print("Classification Report:\n", classification_report(y_test, dt_pred))
+print("\nF1 Score:", f1_score(y_test, dt_pred))
+print("Precision Score:", precision_score(y_test, dt_pred))
+print("Recall Score:", recall_score(y_test, dt_pred))
+
+print("\nConfusion Matrix:\n")
+sns.heatmap(confusion_matrix(y_test, dt_pred))
+```
+- n the code above, a decision tree classifier model is instantiated using DecisionTreeClassifier(). The model is then trained on the training data using best_model = grid_search.fit(X_train, y_train), which performs a grid search to find the best hyperparameters for the decision tree classifier.
+
+- Predictions are made on the test set using best_model.predict(X_test), and the classification report is printed using classification_report(y_test, dt_pred). Additional evaluation metrics such as F1 score, precision score, and recall score are calculated using the corresponding functions from the scikit-learn library.
+
+- Finally, a confusion matrix is generated using confusion_matrix(y_test, dt_pred) and visualized as a heatmap using sns.heatmap().
+
+### Evaluation metric
+After making predictions with the logistic regression and decision tree models, it's important to assess their performance using various evaluation metrics. The scikit-learn library provides functions to calculate metrics such as accuracy, precision, recall, and F1 score.
+```python
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Evaluate Logistic Regression model
+lr_accuracy = accuracy_score(y_test, lr_pred)
+lr_precision = precision_score(y_test, lr_pred)
+lr_recall = recall_score(y_test, lr_pred)
+lr_f1 = f1_score(y_test, lr_pred)
+
+# Evaluate Decision Tree model
+dt_accuracy = accuracy_score(y_test, dt_pred)
+dt_precision = precision_score(y_test, dt_pred)
+dt_recall = recall_score(y_test, dt_pred)
+dt_f1 = f1_score(y_test, dt_pred)
+
+# Print evaluation metrics
+print("Logistic Regression Performance:")
+print("Accuracy:", lr_accuracy)
+print("Precision:", lr_precision)
+print("Recall:", lr_recall)
+print("F1 Score:", lr_f1)
+
+print("\nDecision Tree Performance:")
+print("Accuracy:", dt_accuracy)
+print("Precision:", dt_precision)
+print("Recall:", dt_recall)
+print("F1 Score:", dt_f1)
+```
+- In the code above, various evaluation metrics are calculated for both the logistic regression and decision tree models. The metrics being calculated include accuracy, precision, recall, and F1 score. These metrics provide insights into the performance of the models in terms of their overall accuracy, ability to correctly identify positive cases, and ability to capture all relevant positive cases.
+
+- Make sure to place this section under the Model Training and Evaluation subsection in the README file. Feel free to modify the code explanations and formatting according to your project's requirements.
